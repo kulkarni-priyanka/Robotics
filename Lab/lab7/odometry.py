@@ -171,8 +171,6 @@ def my_go_to_pose1(robot, x, y, angle_z):
 	'''
 
 
-
-
 	x0 = robot.pose.position.x
 	y0 = robot.pose.position.y
 
@@ -244,7 +242,7 @@ def my_go_to_pose2(robot, x, y, angle_z):
 	xg = result[0]
 	yg = result[1]
 
-	while rho>16: #stop when close to the target
+	while True:
 		xr = robot.pose.position.x
 		yr = robot.pose.position.y
 		thetar = robot.pose.rotation.angle_z.radians ##
@@ -292,6 +290,9 @@ def my_go_to_pose2(robot, x, y, angle_z):
 		robot.drive_wheels((phi_left), (phi_right))
 		time.sleep(1)
 
+		if(phi_right<1 and phi_right<1): #stop when close to the target and speeds are close to being stationary
+			break;
+
 def my_go_to_pose3(robot, x, y, angle_z):
 	"""Moves the robot to a pose relative to its current pose.
 		Arguments:
@@ -316,7 +317,7 @@ def my_go_to_pose3(robot, x, y, angle_z):
 def run(robot: cozmo.robot.Robot):
 	print("***** Front wheel radius: " + str(get_front_wheel_radius()))
 	print("***** Distance between wheels: " + str(get_distance_between_wheels()))
-	
+
 	cozmo_drive_straight(robot, 62, 50)
 	cozmo_turn_in_place(robot, 60, 30)
 	cozmo_go_to_pose(robot, 100, 100, 45)
